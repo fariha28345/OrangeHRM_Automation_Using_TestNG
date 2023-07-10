@@ -5,6 +5,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
@@ -15,10 +17,11 @@ import setup.Setup;
 import utils.Utils;
 
 import java.io.IOException;
+import java.time.Duration;
 
 public class UserTestRunner extends Setup {
     @Test(priority = 1, description = "User can not login with invalid username")
-    public void doLoginWithInvalidUsername() throws IOException, ParseException {
+    public void doLoginWithInvalidUsername() throws IOException, ParseException{
         LoginPage loginPage = new LoginPage(driver);
         JSONArray empArray = Utils.readJSONArray("./src/test/resources/Employees.json");
         JSONObject empObj = (JSONObject) empArray.get(empArray.size()-1);
@@ -52,6 +55,10 @@ public class UserTestRunner extends Setup {
         MyInfoPage myInfoPage = new MyInfoPage(driver);
         myInfoPage.menuMyInfo.get(2).click();
         Thread.sleep(3000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("orangehrm-main-title")));
+
         Utils.doScroll(driver);
         myInfoPage.selectBloodType.get(2).sendKeys("O+");
         myInfoPage.btnSave.get(1).click();
@@ -59,13 +66,16 @@ public class UserTestRunner extends Setup {
         String txtActual = myInfoPage.selectBloodType.get(2).getText();
         String txtExpected = "-- Select --";
         Assert.assertEquals(txtActual, txtExpected);
-
     }
     @Test(priority = 5, description = "The employee's blood type should not be saved if the employee does not click the save button")
     public void saveInfoWithoutClickSaveButton() throws InterruptedException {
         MyInfoPage myInfoPage = new MyInfoPage(driver);
         myInfoPage.menuMyInfo.get(2).click();
         Thread.sleep(3000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("orangehrm-main-title")));
+
         Utils.doScroll(driver);
         myInfoPage.selectBloodType.get(2).click();
         myInfoPage.selectBloodType.get(2).sendKeys(Keys.ARROW_DOWN);
@@ -81,13 +91,16 @@ public class UserTestRunner extends Setup {
         String txtActual = myInfoPage.selectBloodType.get(2).getText();
         String txtExpected = "-- Select --";
         Assert.assertEquals(txtActual, txtExpected);
-
     }
     @Test(priority = 6, description = "Employee can save gender and blood type")
     public void saveInfo() throws InterruptedException {
         MyInfoPage myInfoPage = new MyInfoPage(driver);
         myInfoPage.menuMyInfo.get(2).click();
         Thread.sleep(3000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("orangehrm-main-title")));
+
         Utils.doScroll(driver);
         myInfoPage.genderBtn.get(0).click();
         myInfoPage.btnSave.get(0).click();
@@ -104,13 +117,16 @@ public class UserTestRunner extends Setup {
         String txtActual = myInfoPage.selectBloodType.get(2).getText();
         String txtExpected = "O+";
         Assert.assertEquals(txtActual, txtExpected);
-
     }
     @Test(priority = 7, description = "Employee blood type must be selected for update, not typed")
     public void UpdateBloodTypeBySendKey() throws InterruptedException {
         MyInfoPage myInfoPage = new MyInfoPage(driver);
         myInfoPage.menuMyInfo.get(2).click();
         Thread.sleep(3000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("orangehrm-main-title")));
+
         Utils.doScroll(driver);
         myInfoPage.selectBloodType.get(2).sendKeys("O+");
         myInfoPage.btnSave.get(1).click();
@@ -118,7 +134,6 @@ public class UserTestRunner extends Setup {
         String txtActual = myInfoPage.selectBloodType.get(2).getText();
         String txtExpected = "-- Select --";
         Assert.assertEquals(txtActual, txtExpected);
-
     }
     @Test(priority = 8, description = "Employee can update blood type", groups = "smoke")
     public void updateBloodType() throws InterruptedException {
@@ -126,6 +141,10 @@ public class UserTestRunner extends Setup {
         myInfoPage.menuMyInfo.get(2).click();
         Thread.sleep(3000);
         Utils.doScroll(driver);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("orangehrm-main-title")));
+
         myInfoPage.selectBloodType.get(2).click();
         myInfoPage.selectBloodType.get(2).sendKeys(Keys.ARROW_DOWN);
         myInfoPage.selectBloodType.get(2).sendKeys(Keys.ARROW_DOWN);

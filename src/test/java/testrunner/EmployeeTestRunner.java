@@ -44,7 +44,8 @@ public class EmployeeTestRunner extends Setup {
         String lastName = faker.name().lastName();
         pimPage.textElem.get(3).sendKeys(lastName);//last name
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("oxd-switch-input")));
+        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.className("oxd-switch-input")));
         //Thread.sleep(1000);
         driver.findElement(By.className("oxd-switch-input")).click();
         String password = Utils.generateStrongPassword();
@@ -73,7 +74,8 @@ public class EmployeeTestRunner extends Setup {
         String lastName = faker.name().lastName();
         pimPage.textElem.get(3).sendKeys(lastName);//last name
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("oxd-switch-input")));
+        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.className("oxd-switch-input")));
         //Thread.sleep(1000);
         driver.findElement(By.className("oxd-switch-input")).click();
         String username = faker.name().username() + Utils.generateRandomId(100,999);
@@ -101,8 +103,8 @@ public class EmployeeTestRunner extends Setup {
         pimPage.textElem.get(3).sendKeys(lastName);//last name
         String employeeid = pimPage.textElem.get(4).getAttribute("value");
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("oxd-switch-input")));
-        Thread.sleep(1000);
+        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.className("oxd-switch-input")));
         driver.findElement(By.className("oxd-switch-input")).click();
 
         String username = faker.name().username() + Utils.generateRandomId(100,999);
@@ -139,6 +141,10 @@ public class EmployeeTestRunner extends Setup {
         Thread.sleep(2000);
         pimPage.buttonElem.get(1).click();
         Thread.sleep(1000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("oxd-text--span")));
+
         String textActual = driver.findElements(By.className("oxd-text--span")).get(11).getText();
         String textExpected = "Record Found";
         Assert.assertTrue(textActual.contains(textExpected));
@@ -150,7 +156,11 @@ public class EmployeeTestRunner extends Setup {
         pimPage.textElem.get(1).sendKeys("1h#7");
         Thread.sleep(2000);
         pimPage.buttonElem.get(1).click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("oxd-text--span")));
+
         String textActual = driver.findElements(By.className("oxd-text--span")).get(11).getText();
         String textExpected = "No Records Found";
         Assert.assertTrue(textActual.contains(textExpected));
@@ -169,6 +179,10 @@ public class EmployeeTestRunner extends Setup {
         Thread.sleep(2000);
         pimPage.buttonElem.get(1).click();
         Thread.sleep(1000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("oxd-text--span")));
+
         String textActual = driver.findElements(By.className("oxd-text--span")).get(11).getText();
         String textExpected = "Record Found";
         Assert.assertTrue(textActual.contains(textExpected));
@@ -181,6 +195,10 @@ public class EmployeeTestRunner extends Setup {
         driver.findElements(By.tagName("input")).get(1).sendKeys("1harim*");
         pimPage.buttonElem.get(1).click();
         Thread.sleep(1000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("oxd-text--span")));
+
         String textActual = driver.findElements(By.className("oxd-text--span")).get(11).getText();
         String textExpected = "Invalid";
         Assert.assertTrue(textActual.contains(textExpected));
